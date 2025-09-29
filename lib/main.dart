@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'package:fase_2/config/theme/app_theme.dart';
+
 import 'package:fase_2/features/store/infrastructure/datasources/remote_products_datasource_impl.dart';
 //import 'package:fase_2/features/store/infrastructure/datasources/local_products_datasource_impl.dart';
 import 'package:fase_2/features/store/infrastructure/repositories_impl/product_repository_impl.dart';
@@ -15,6 +17,8 @@ Future<void> main() async {
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
+
+  static final ThemeData _theme = const AppTheme().getTheme();
 
   static final ProductRepositoryImpl _productRepository = ProductRepositoryImpl(
     datasource: RemoteProductsDatasourceImpl(),
@@ -33,6 +37,7 @@ class MainApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Fase 2',
         debugShowCheckedModeBanner: false,
+        theme: _theme,
         home: const HomeScreen(),
       ),
     );

@@ -17,7 +17,10 @@ class CardProduct extends StatelessWidget {
       shadowColor: theme.colorScheme.primary.withValues(alpha: 0.5),
       child: Column(
         children: [
-          _ImageCard(imageUrl: product.image),
+          _ImageCard(
+            imageUrl: product.image,
+            backgroundColor: theme.colorScheme.secondary,
+          ),
           _BodyCard(product: product, theme: theme),
         ],
       ),
@@ -49,7 +52,7 @@ class _BodyCard extends StatelessWidget {
             product.category,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: theme.textTheme.bodySmall?.copyWith(
+            style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.primary,
             ),
           ),
@@ -80,9 +83,10 @@ class _BodyCard extends StatelessWidget {
 }
 
 class _ImageCard extends StatelessWidget {
-  const _ImageCard({required this.imageUrl});
+  const _ImageCard({required this.imageUrl, required this.backgroundColor});
 
   final String imageUrl;
+  final Color backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -90,7 +94,7 @@ class _ImageCard extends StatelessWidget {
       padding: const EdgeInsets.all(10),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: backgroundColor,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Padding(

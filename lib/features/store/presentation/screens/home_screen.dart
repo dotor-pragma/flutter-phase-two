@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'package:fase_2/features/store/presentation/providers/store_provider.dart';
+import 'package:fase_2/features/store/presentation/widgets/card_product.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -17,10 +18,7 @@ class HomeScreen extends StatelessWidget {
               itemCount: storeProvider.products.length,
               itemBuilder: (context, index) {
                 final product = storeProvider.products[index];
-                return ListTile(
-                  title: Text(product.title),
-                  subtitle: Text(product.price.toString()),
-                );
+                return CardProduct(product: product);
               },
             ),
     );

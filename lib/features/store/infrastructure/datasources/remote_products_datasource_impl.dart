@@ -15,16 +15,29 @@ class RemoteProductsDatasourceImpl implements ProductDatasource {
   Future<Either<Failure, List<ProductEntity>>> getAll() async {
     try {
       final response = await dio.get('/products');
-      final payload = response.data;
+      final payload = response.data as List<dynamic>;
 
       //simular error
       //throw Exception('Error al obtener los productos');
       //throw DioException(requestOptions: RequestOptions());
 
+      /* if (payload is! Iterable) {
+        return left(
+          const Failure(
+            'Formato inesperado de respuesta',
+            code: 'invalid_response',
+          ),
+        );
+      } */
+
       final products = payload
-          .whereType<Map<String, dynamic>>()
-          .map((product) => ProductModel.fromJson(product).toProductEntity())
+          .map(
+            (product) => ProductModel.fromJson(
+              product as Map<String, dynamic>,
+            ).toProductEntity(),
+          )
           .toList();
+
       return right(products);
     } on DioException catch (dioError) {
       final statusCode = dioError.response?.statusCode;
@@ -36,11 +49,11 @@ class RemoteProductsDatasourceImpl implements ProductDatasource {
           code: dioError.type.name,
         ),
       );
-    } catch (_) {
+    } catch (error) {
       return left(
-        const Failure(
-          'Error desconocido al obtener los productos',
-          code: 'unknown',
+        Failure(
+          'Error al procesar los productos: ${error.toString()}',
+          code: 'parse_error',
         ),
       );
     }

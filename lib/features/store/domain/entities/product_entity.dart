@@ -23,4 +23,17 @@ class ProductEntity {
     required this.image,
     required this.rating,
   });
+
+  @override
+  String toString() {
+    return ''' 
+      ID: $id
+      Title: $title
+      Price: $price
+      Description: $description
+      Category: $category
+      Image: $image
+      Rating: $rating
+    ''';
+  }
 }

@@ -27,9 +27,23 @@ class StoreProvider extends ChangeNotifier {
         products
           ..clear()
           ..addAll(data);
+        _logProducts(products);
       },
     );
     isLoading = false;
     notifyListeners();
+  }
+
+  void _logProducts(List<ProductEntity> items) {
+    if (items.isEmpty) {
+      debugPrint('No se encontraron productos para mostrar.');
+      return;
+    }
+
+    debugPrint('===== Productos obtenidos (${items.length}) =====');
+    for (final p in items) {
+      debugPrint('--------------------------------------------');
+      debugPrint(p.toString());
+    }
   }
 }

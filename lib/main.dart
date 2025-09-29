@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
+import 'package:fase_2/core/network/dio_client.dart';
 import 'package:fase_2/config/theme/app_theme.dart';
 
+import 'package:fase_2/features/store/domain/usecases/products_usecase.dart';
 import 'package:fase_2/features/store/infrastructure/datasources/remote_products_datasource_impl.dart';
 //import 'package:fase_2/features/store/infrastructure/datasources/local_products_datasource_impl.dart';
 import 'package:fase_2/features/store/infrastructure/repositories_impl/product_repository_impl.dart';
@@ -21,8 +23,11 @@ class MainApp extends StatelessWidget {
   static final ThemeData _theme = const AppTheme().getTheme();
 
   static final ProductRepositoryImpl _productRepository = ProductRepositoryImpl(
-    datasource: RemoteProductsDatasourceImpl(),
+    datasource: RemoteProductsDatasourceImpl(DioClient.dio),
   );
+
+  static final GetAllProductsUseCase _getAllProductsUseCase =
+      GetAllProductsUseCase(productRepository: _productRepository);
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +35,7 @@ class MainApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) =>
-              StoreProvider(productRepository: _productRepository)
+              StoreProvider(getAllProductsUseCase: _getAllProductsUseCase)
                 ..getAllProducts(),
         ),
       ],

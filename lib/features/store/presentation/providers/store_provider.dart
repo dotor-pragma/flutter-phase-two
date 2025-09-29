@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 
 import 'package:fase_2/features/store/domain/entities/product_entity.dart';
-import 'package:fase_2/features/store/domain/repositories/product_repository.dart';
+import 'package:fase_2/features/store/domain/usecases/products_usecase.dart';
 
 class StoreProvider extends ChangeNotifier {
-  final ProductRepository productRepository;
+  final GetAllProductsUseCase _getAllProductsUseCase;
 
-  StoreProvider({required this.productRepository});
+  StoreProvider({required GetAllProductsUseCase getAllProductsUseCase})
+      : _getAllProductsUseCase = getAllProductsUseCase;
 
   bool isLoading = true;
   final List<ProductEntity> products = [];
 
   Future<void> getAllProducts() async {
-    final result = await productRepository.getAll();
+    final result = await _getAllProductsUseCase();
     if (result.isNotEmpty) {
       products.addAll(result);
     }

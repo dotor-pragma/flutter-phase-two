@@ -4,6 +4,6 @@ class AppTheme {
   const AppTheme();
 
   ThemeData getTheme() {
-    return ThemeData(brightness: Brightness.dark);
+    return ThemeData(brightness: Brightness.light);
   }
 }

@@ -19,7 +19,7 @@ class CardProduct extends StatelessWidget {
         children: [
           _ImageCard(
             imageUrl: product.image,
-            backgroundColor: theme.colorScheme.secondary,
+            backgroundColor: theme.colorScheme.secondary.withValues(alpha: 0.2),
           ),
           _BodyCard(product: product, theme: theme),
         ],

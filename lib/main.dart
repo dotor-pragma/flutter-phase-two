@@ -23,7 +23,7 @@ class MainApp extends StatelessWidget {
   static final ThemeData _theme = const AppTheme().getTheme();
 
   static final ProductRepositoryImpl _productRepository = ProductRepositoryImpl(
-    datasource: RemoteProductsDatasourceImpl(DioClient.dio),
+    datasource: RemoteProductsDatasourceImpl(DioClient().dio),
   );
 
   static final GetAllProductsUseCase _getAllProductsUseCase =
@@ -39,6 +39,7 @@ class MainApp extends StatelessWidget {
                 ..getAllProducts(),
         ),
       ],
+
       child: MaterialApp(
         title: 'Fase 2',
         debugShowCheckedModeBanner: false,

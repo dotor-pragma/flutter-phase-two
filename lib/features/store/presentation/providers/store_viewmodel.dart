@@ -1,33 +1,36 @@
+import 'dart:collection';
 import 'package:flutter/material.dart';
 
 import 'package:fase_2/core/errors/failure.dart';
 import 'package:fase_2/features/store/domain/entities/product_entity.dart';
 import 'package:fase_2/features/store/domain/usecases/products_usecase.dart';
 
-class StoreProvider extends ChangeNotifier {
+class StoreViewModel extends ChangeNotifier {
   final GetAllProductsUseCase _getAllProductsUseCase;
 
-  StoreProvider({required GetAllProductsUseCase getAllProductsUseCase})
+  StoreViewModel({required GetAllProductsUseCase getAllProductsUseCase})
     : _getAllProductsUseCase = getAllProductsUseCase;
 
   bool isLoading = true;
   Failure? failure;
 
-  final List<ProductEntity> products = [];
+  final List<ProductEntity> _products = [];
+
+  List<ProductEntity> get products => UnmodifiableListView(_products);
 
   Future<void> getAllProducts() async {
     final result = await _getAllProductsUseCase();
     result.fold(
       (error) {
         failure = error;
-        products.clear();
+        _products.clear();
       },
       (data) {
         failure = null;
-        products
+        _products
           ..clear()
           ..addAll(data);
-        _logProducts(products);
+        _logProducts(_products);
       },
     );
     isLoading = false;

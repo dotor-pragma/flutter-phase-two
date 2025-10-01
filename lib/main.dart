@@ -9,8 +9,8 @@ import 'package:fase_2/features/store/domain/usecases/products_usecase.dart';
 import 'package:fase_2/features/store/infrastructure/datasources/remote_products_datasource_impl.dart';
 //import 'package:fase_2/features/store/infrastructure/datasources/local_products_datasource_impl.dart';
 import 'package:fase_2/features/store/infrastructure/repositories_impl/product_repository_impl.dart';
-import 'package:fase_2/features/store/presentation/providers/store_provider.dart';
-import 'package:fase_2/features/store/presentation/screens/home_screen.dart';
+import 'package:fase_2/features/store/presentation/providers/store_viewmodel.dart';
+import 'package:fase_2/features/store/presentation/screens/home_view.dart';
 
 Future<void> main() async {
   await dotenv.load(fileName: '.env');
@@ -35,7 +35,7 @@ class MainApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (_) =>
-              StoreProvider(getAllProductsUseCase: _getAllProductsUseCase)
+              StoreViewModel(getAllProductsUseCase: _getAllProductsUseCase)
                 ..getAllProducts(),
         ),
       ],
@@ -44,7 +44,7 @@ class MainApp extends StatelessWidget {
         title: 'Fase 2',
         debugShowCheckedModeBanner: false,
         theme: _theme,
-        home: const HomeScreen(),
+        home: const HomeView(),
       ),
     );
   }

@@ -3,6 +3,7 @@
     "datasource",
     "Datasource",
     "usecase",
-    "usecases"
+    "usecases",
+    "viewmodel"
   ]
 }

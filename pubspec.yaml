@@ -1,5 +1,5 @@
 name: fase_2
-description: "A new Flutter project."
+description: "Clean architecture console demo for Fake Store API"
 publish_to: 'none'
 version: 0.1.0
 
@@ -9,17 +9,6 @@ environment:
 dependencies:
   dartz: ^0.10.1
   dio: ^5.9.0
-  flutter:
-    sdk: flutter
-  flutter_dotenv: ^6.0.0
-  provider: ^6.1.5+1
 
 dev_dependencies:
-  flutter_lints: ^5.0.0
-  flutter_test:
-    sdk: flutter
-
-flutter:
-  uses-material-design: true
-  assets:
-    - .env
+  lints: ^5.0.0

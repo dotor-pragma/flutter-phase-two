@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:fase_2/core/network/dio_client.dart';
 import 'package:fase_2/domain/usecases/products_usecase.dart';
 import 'package:fase_2/infrastructure/datasources/remote_products_datasource_impl.dart';
@@ -9,11 +11,14 @@ Future<void> main(List<String> arguments) async {
   final repository = ProductRepositoryImpl(
     datasource: RemoteProductsDatasourceImpl(dio),
   );
-  final getAllProductsUseCase =
-      GetAllProductsUseCase(productRepository: repository);
+  final getAllProductsUseCase = GetAllProductsUseCase(
+    productRepository: repository,
+  );
 
-  final presenter =
-      StoreCliPresenter(getAllProductsUseCase: getAllProductsUseCase);
+  final presenter = StoreCliPresenter(
+    getAllProductsUseCase: getAllProductsUseCase,
+  );
 
   await presenter.fetchAndPrintProducts();
+  exit(0);
 }
